@@ -241,7 +241,13 @@ export default function QuizPage() {
     );
   }
 
-  const questionNumber = state.question_number ?? state.answered_count + 1;
+  const questionNumber =
+  state.question_number ??
+  Math.max(1, (state.answered_count ?? 0) + 1);
+
+const answeredCount =
+  state.answered_count ??
+  Math.max(0, questionNumber - 1);
   const progress = (questionNumber / state.total_questions) * 100;
 
   return (
@@ -251,7 +257,7 @@ export default function QuizPage() {
           <span>
             Klausimas {questionNumber} iš {state.total_questions}
           </span>
-          <span>Atsakyta: {state.answered_count}</span>
+          <span>Atsakyta: {answeredCount}</span>
         </div>
 
         <div className="mb-7 h-2 overflow-hidden rounded-full bg-gray-200">
